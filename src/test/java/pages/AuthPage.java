@@ -16,10 +16,23 @@ public class AuthPage {
         return this;
     }
 
-    @Step("Переход к странице логина")
-    public AuthPage enterEmail(String email){
+    @Step("Ввод почты")
+    public AuthPage setEmail(String email)
+    {
         emailInput.setValue(email);
+        return this;
+    }
+
+    @Step("Нажатие на продолжить")
+    public AuthPage submitClick(){
         submitButton.click();
+        return this;
+    }
+
+    @Step("Ввод почты и переход к вводу пароля")
+    public AuthPage enterEmail(String email){
+        setEmail(email);
+        submitClick();
         return this;
     }
 }

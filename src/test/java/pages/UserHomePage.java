@@ -10,7 +10,7 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class UserHomePage {
     private final SelenideElement usernameLabel = $(".e1mfh2oq2 "),
-    createWishlistButton = $(byText("Создать вишлист"));
+    createWishlistButton = $("a[href=\"/app/wishlists/create\"]");
 
     @Step("проверка что мы на странице пользователя")
     public UserHomePage checkPage(String userUrl){
