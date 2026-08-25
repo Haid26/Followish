@@ -8,5 +8,6 @@ public class TestData {
             DEFAULT_EMPTY_FIELD_ERROR = "Это обязательное поле",
             DEFAULT_SUCCESSFUL_WISHLIST_DELETION_MESSAGE = "Вишлист удален!",
             DEFAULT_SUCCESSFUL_WISHLIST_CREATION_MESSAGE = "Вишлист успешно создан!",
-            DEFAULT_SUCCESSFUL_WISHLIST_UPDATE_MESSAGE = "Вишлист успешно обновлен!";
+            DEFAULT_SUCCESSFUL_WISHLIST_UPDATE_MESSAGE = "Вишлист успешно обновлен!",
+            EXPECTED_TOKEN_PATH = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9";
 }

@@ -5,6 +5,8 @@ import net.datafaker.Faker;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.DAYS;
+
 public class Wishlist {
     private String id, name, dateEnd, comment;
     Faker faker = new Faker();
@@ -18,7 +20,7 @@ public class Wishlist {
     }
 
     public void generateRandomFutureDate() {
-        this.dateEnd = faker.timeAndDate().future(730, TimeUnit.DAYS, "dd.MM.yyyy");
+        this.dateEnd = faker.timeAndDate().future(730, DAYS, "dd.MM.yyyy");
     }
 
     @Step("Генерация новых тестовых данных")

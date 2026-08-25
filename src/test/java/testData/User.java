@@ -1,7 +1,8 @@
 package testData;
 
 public class User {
-    private String email, password, access, userlink;
+    private String email, password, access;
+    int id;
 
     public String getEmail() {
         return email;
@@ -27,4 +28,11 @@ public class User {
         this.access = access;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -1,9 +1,12 @@
-package tests.ui;
+package tests;
 
+import api.ApiClient;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import helpers.AllureListenerUI;
+import allure.AllureListenerUI;
 import io.qameta.allure.selenide.AllureSelenide;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +24,7 @@ import static testData.TestData.DEFAULT_PASS;
 import static testData.TestData.DEFAULT_USER;
 
 public class TestBase {
+    protected static final ApiClient api = new ApiClient();
     AuthPage authPage = new AuthPage();
     LoginPage loginPage = new LoginPage();
     UserHomePage userHomePage = new UserHomePage();
@@ -46,7 +50,7 @@ public class TestBase {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion");
 
-        RestAssured.baseURI = System.getProperty("apiUrl","https://core.followish.io");
+        RestAssured.baseURI = System.getProperty("apiUrl", "https://core.followish.io");
         RestAssured.basePath = "/api";
 
     }
@@ -62,11 +66,13 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
-        AllureListenerUI.screenshotAs("Last screenshot");
-        AllureListenerUI.pageSource();
-        AllureListenerUI.browserConsoleLogs();
-        AllureListenerUI.addVideo();
-        tearDown();
+        if (WebDriverRunner.hasWebDriverStarted()) {
+            AllureListenerUI.screenshotAs("Last screenshot");
+            AllureListenerUI.pageSource();
+            AllureListenerUI.browserConsoleLogs();
+            AllureListenerUI.addVideo();
+            tearDown();
+        }
     }
 
 
