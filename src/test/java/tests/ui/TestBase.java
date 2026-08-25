@@ -11,15 +11,21 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.AuthPage;
 import pages.LoginPage;
 import pages.UserHomePage;
+import testData.User;
+import testData.Wishlist;
 
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static testData.TestData.DEFAULT_PASS;
+import static testData.TestData.DEFAULT_USER;
 
 public class TestBase {
     AuthPage authPage = new AuthPage();
     LoginPage loginPage = new LoginPage();
     UserHomePage userHomePage = new UserHomePage();
+    Wishlist wishlist = new Wishlist();
+    User user = new User();
 
     @BeforeAll
     static void setupSelenideConfig() {
@@ -40,12 +46,18 @@ public class TestBase {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion");
 
+        RestAssured.baseURI = System.getProperty("apiUrl","https://core.followish.io");
+        RestAssured.basePath = "/api";
 
     }
 
     @BeforeEach
-    void addAllureSelenideListener() {
+    void setUpTestData() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        wishlist.generateTestData();
+        user.setEmail(DEFAULT_USER);
+        user.setPassword(DEFAULT_PASS);
+
     }
 
     @AfterEach

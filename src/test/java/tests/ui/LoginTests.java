@@ -24,9 +24,9 @@ public class LoginTests extends TestBase {
     @DisplayName("тест на успешную авторизацию пользователя")
     public void shouldLogin() {
         authPage.openPage()
-                .setEmail(DEFAULT_USER)
+                .setEmail(user.getEmail())
                 .submitClick();
-        loginPage.setPassword(DEFAULT_PASS)
+        loginPage.setPassword(user.getPassword())
                 .enterClick();
         userHomePage.checkPage(baseUrl + DEFAUL_USER_HOMEPAGE);
     }
