@@ -1,6 +1,7 @@
 package tests;
 
 import io.qameta.allure.*;
+import models.common.NotFoundResponseModel;
 import models.login.LoginRequestModel;
 import models.login.LoginResponseModel;
 import models.wishlist.WishlistDeleteModel;
@@ -291,6 +292,61 @@ public class WishlistTests extends TestBase {
             for (int i = 0; i<getListResponse.wishlistList().length;i++)
                 assertEquals(user.getId(),getListResponse.wishlistList()[i].userId());
         });
+    }
+
+    @Test
+    @Feature("delete wishlist")
+    @Story("delete already deleted wishlist")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.NORMAL)
+    @DisplayName("тест на удаление вишлиста")
+    public void shouldNotDeleteWishlistTwiceApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel createBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
+        wishlist.setId(createResponse.id());
+        wishlist.setLinkKey(createResponse.linkKey());
+
+        WishlistDeleteModel deleteBody = new WishlistDeleteModel(wishlist.getId());
+        WishlistDeleteModel deleteResponse = api.wishlists.delete(deleteBody, user.getAccess());
+        NotFoundResponseModel deleteResponse2 = api.wishlists.deleteNotFound(deleteBody,user.getAccess());
+        step("Проверка ответа метода", () ->
+                assertEquals(DEFAULT_NOT_FOUND_MESSAGE, deleteResponse2.message()));
+
+    }
+
+    @Test
+    @Feature("edit wishlist")
+    @Story("edit non-existent wishlist")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.NORMAL)
+    @DisplayName("тест на редактирование вишлиста")
+    public void shouldNotEditNonExistWishlistApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel editBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        NotFoundResponseModel editResponse = api.wishlists.editNotFound(editBody, DEFAULT_NON_EXIST_WISHLIST_LINK, user.getAccess());
+        step("Проверка ответа метода", () ->
+                assertEquals(DEFAULT_NOT_FOUND_MESSAGE, editResponse.message()));
 
     }
 }
