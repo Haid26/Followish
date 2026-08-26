@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "name": {
+        "type": "string"
+      },
+      "dateEnd": {},
+      "comment": {},
+      "linkKey": {
+        "type": "string"
+      },
+      "userId": {
+        "type": "number"
+      },
+      "views": {
+        "type": "number"
+      },
+      "linkClicks": {
+        "type": "number"
+      },
+      "nameVisibleStatus": {
+        "type": "string"
+      },
+      "theme": {},
+      "viewPrivacyStatus": {
+        "type": "string"
+      },
+      "reservePrivacyStatus": {
+        "type": "string"
+      },
+      "isProfileLinkVisible": {
+        "type": "boolean"
+      },
+      "presentsSortType": {
+        "type": "string"
+      },
+      "position": {},
+      "isExecutedSection": {
+        "type": "boolean"
+      },
+      "visitorsCount": {
+        "type": "number"
+      },
+      "presentsCount": {
+        "type": "number"
+      },
+      "presentImages": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "dateEnd",
+      "linkKey",
+      "userId",
+      "views",
+      "linkClicks",
+      "nameVisibleStatus",
+      "theme",
+      "viewPrivacyStatus",
+      "reservePrivacyStatus",
+      "isProfileLinkVisible",
+      "presentsSortType",
+      "position",
+      "isExecutedSection",
+      "visitorsCount",
+      "presentsCount",
+      "presentImages"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "dateEnd": {},
+    "comment": {},
+    "nameVisibleStatus": {
+      "type": "string"
+    },
+    "viewPrivacyStatus": {
+      "type": "string"
+    },
+    "reservePrivacyStatus": {
+      "type": "string"
+    },
+    "isProfileLinkVisible": {
+      "type": "boolean"
+    },
+    "theme": {},
+    "linkKey": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    },
+    "position": {},
+    "id": {
+      "type": "number"
+    },
+    "visitorsCount": {
+      "type": "number"
+    },
+    "presentsCount": {
+      "type": "number"
+    },
+    "presentImages": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "required": [
+    "name",
+    "nameVisibleStatus",
+    "viewPrivacyStatus",
+    "reservePrivacyStatus",
+    "isProfileLinkVisible",
+    "theme",
+    "linkKey",
+    "userId",
+    "position",
+    "id",
+    "visitorsCount",
+    "presentsCount",
+    "presentImages"
+  ]
+}

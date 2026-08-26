@@ -1,15 +1,27 @@
 package tests;
 
 import io.qameta.allure.*;
+import models.login.LoginRequestModel;
+import models.login.LoginResponseModel;
+import models.wishlist.WishlistDeleteModel;
+import models.wishlist.WishlistGetListResponseModel;
+import models.wishlist.WishlistRequestModel;
+import models.wishlist.WishlistResponseModel;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.CreationWishlistPage;
 import pages.WishlistPage;
+import utils.DateTimeConvertor;
 
+import java.util.Objects;
+
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static testData.TestData.*;
 
-@Feature("Вишлист")
+@Epic("Вишлист")
 @Owner("Haid26")
 @DisplayName("Тесты на вишлисты")
 public class WishlistTests extends TestBase {
@@ -17,11 +29,12 @@ public class WishlistTests extends TestBase {
     WishlistPage wishlistPage = new WishlistPage();
 
     @Test
-    @Story("create wishlist")
+    @Feature("create wishlist")
+    @Story("create wishlist from web")
     @Tag("Web")
     @Severity(value = SeverityLevel.CRITICAL)
     @DisplayName("тест на создание вишлиста")
-    public void shouldCreateWishlist() {
+    public void shouldCreateWishlistWeb() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
         loginPage.enterPassword(user.getPassword());
@@ -137,4 +150,147 @@ public class WishlistTests extends TestBase {
                 .checkName(wishlist.getName());
     }
 
+    @Test
+    @Feature("create wishlist")
+    @Story("create wishlist from api")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @DisplayName("тест на создание вишлиста")
+    public void shouldCreateWishlistApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel createBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
+        if (Objects.equals(wishlist.getComment(), ""))
+            wishlist.setComment(null);
+        step("Проверка ответа метода", () -> {
+            assertEquals(wishlist.getName(), createResponse.name());
+            assertEquals(wishlist.getDateEnd(), DateTimeConvertor.convertDate(createResponse.dateEnd()));
+            assertEquals(wishlist.getComment(), createResponse.comment());
+            assertEquals(wishlist.getNameVisibleStatus(), createResponse.nameVisibleStatus());
+            assertEquals(wishlist.getViewPrivacyStatus(), createResponse.viewPrivacyStatus());
+            assertEquals(wishlist.getReservePrivacyStatus(), createResponse.reservePrivacyStatus());
+            assertEquals(wishlist.isProfileLinkVisible(), createResponse.isProfileLinkVisible());
+            assertEquals(wishlist.getTheme(), createResponse.theme());
+            assertEquals(user.getId(), createResponse.userId());
+        });
+
+    }
+
+    @Test
+    @Feature("edit wishlist")
+    @Story("edit wishlist from api")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @DisplayName("тест на редактирование вишлиста")
+    public void shouldEditWishlistApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel createBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
+        wishlist.setId(createResponse.id());
+        wishlist.setLinkKey(createResponse.linkKey());
+        wishlist.generateTestData();
+
+        WishlistRequestModel editBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel editResponse = api.wishlists.edit(editBody, wishlist.getLinkKey(), user.getAccess());
+        if (Objects.equals(wishlist.getComment(), ""))
+            wishlist.setComment(null);
+        step("Проверка ответа метода", () -> {
+            assertEquals(wishlist.getName(), editResponse.name());
+            assertEquals(wishlist.getDateEnd(), DateTimeConvertor.convertDate(editResponse.dateEnd()));
+            assertEquals(wishlist.getComment(), editResponse.comment());
+            assertEquals(wishlist.getNameVisibleStatus(), editResponse.nameVisibleStatus());
+            assertEquals(wishlist.getViewPrivacyStatus(), editResponse.viewPrivacyStatus());
+            assertEquals(wishlist.getReservePrivacyStatus(), editResponse.reservePrivacyStatus());
+            assertEquals(wishlist.isProfileLinkVisible(), editResponse.isProfileLinkVisible());
+            assertEquals(wishlist.getTheme(), editResponse.theme());
+            assertEquals(user.getId(), editResponse.userId());
+        });
+
+    }
+
+    @Test
+    @Feature("delete wishlist")
+    @Story("delete wishlist from api")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @DisplayName("тест на удаление вишлиста")
+    public void shouldDeleteWishlistApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel createBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
+        wishlist.setId(createResponse.id());
+        wishlist.setLinkKey(createResponse.linkKey());
+
+        WishlistDeleteModel deleteBody = new WishlistDeleteModel(wishlist.getId());
+        WishlistDeleteModel deleteResponse = api.wishlists.delete(deleteBody, user.getAccess());
+        step("Проверка ответа метода", () ->
+                assertEquals(wishlist.getId(), deleteResponse.id()));
+
+    }
+
+    @Disabled//разобраться с сериализацией массива
+    @Test
+    @Feature("Get List of wishlists")
+    @Story("create wishlist and get list of wishlists from api")
+    @Tag("Api")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @DisplayName("тест на получение списка вишлистов")
+    public void shouldGetListWishlistApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
+        LoginResponseModel loginResponse = api.auth.login(loginBody);
+        user.setAccess(loginResponse.accessToken());
+        user.setId(loginResponse.userInfo().id());
+        WishlistRequestModel createBody = new WishlistRequestModel(wishlist.getName(),
+                wishlist.getDateEnd(),
+                wishlist.getComment(),
+                wishlist.getNameVisibleStatus(),
+                wishlist.getViewPrivacyStatus(),
+                wishlist.getReservePrivacyStatus(),
+                wishlist.isProfileLinkVisible(),
+                wishlist.getTheme());
+        WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
+        WishlistGetListResponseModel getListResponse = api.wishlists.getList(user.getAccess());
+        step("Проверка ответа метода", () -> {
+            for (int i = 0; i<getListResponse.wishlistList().length;i++)
+                assertEquals(user.getId(),getListResponse.wishlistList()[i].userId());
+        });
+
+    }
 }
