@@ -13,7 +13,6 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class WishlistPage {
     private final SelenideElement wishlistName = $(".MuiTypography-h1.e1az68wg11.css-1e854mf"),
-            toWishlistsButton = $(byTagAndText("button", "К списку вишлистов")),
             confirmDeletionButton = $(byTagAndText("button", "Да, удалить")),
             alert = $("[role=alert]");
 
