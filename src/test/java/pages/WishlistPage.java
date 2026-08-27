@@ -37,12 +37,6 @@ public class WishlistPage {
         return this;
     }
 
-    @Step("Переход к списку вишлистов")
-    public WishlistPage goToHomePage() {
-        toWishlistsButton.click();
-        return this;
-    }
-
     @Step("Удаление вишлиста со страницы вишлиста")
     public WishlistPage deleteWishlist() {
         editWishListButtons.get(1).click();
