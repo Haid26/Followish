@@ -20,6 +20,7 @@ import testData.Wishlist;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static com.codeborne.selenide.Selenide.sleep;
 import static testData.TestData.DEFAULT_PASS;
 import static testData.TestData.DEFAULT_USER;
 
@@ -61,7 +62,7 @@ public class TestBase {
         wishlist.generateTestData();
         user.setEmail(DEFAULT_USER);
         user.setPassword(DEFAULT_PASS);
-
+        sleep(3000); //вынужденная мера, чтобы обойти проверку на бота
     }
 
     @AfterEach

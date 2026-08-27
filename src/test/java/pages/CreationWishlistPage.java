@@ -31,12 +31,15 @@ public class CreationWishlistPage {
 
     @Step("Ввод комментария")
     public CreationWishlistPage setComment(String value) {
-        commentInput.setValue(value);
+        if (value != null)
+            commentInput.setValue(value);
         return this;
     }
 
     @Step("Ввод даты")
     public CreationWishlistPage setDate(String date) {
+        if (date == null)
+            return this;
         String day;
         if(date.charAt(0)=='0'){
             day = date.substring(1, 2);
