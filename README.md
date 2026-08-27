@@ -1,5 +1,7 @@
 # Проект по автоматизации тестирования для сайта   [Followish](https://followish.io/)
-
+<p align="center">
+<img title="Followish" src="images/logo/followish.jpg"  alt="video">  
+</p>
 ## **Содержание**
 ____
 * <a href="#tools">Технологии и инструменты</a>
