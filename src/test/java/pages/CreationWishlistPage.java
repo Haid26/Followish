@@ -7,7 +7,6 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byTagAndText;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -15,13 +14,13 @@ public class CreationWishlistPage {
     private final SelenideElement wishlistNameInput = $("[name=name]"),
             commentInput = $("[name=comment]"),
             dateInput = $("[name=dateEnd]"),
-            saveButton = $(byTagAndText("button","Сохранить")),
+            saveButton = $(byTagAndText("button", "Сохранить")),
             errorNameMessage = $(".MuiFormHelperText-root"),
-    dateChooser = $(".mantine-DatePicker-calendarHeaderLevel");
+            dateChooser = $(".mantine-DatePicker-calendarHeaderLevel");
 
     private final ElementsCollection yearList = $$(".mantine-DatePicker-yearPickerControl"),
-    monthList = $$(".mantine-DatePicker-monthPickerControl"),
-    dayList = $$(".mantine-DatePicker-day:not([data-outside=true]):not([disabled])");
+            monthList = $$(".mantine-DatePicker-monthPickerControl"),
+            dayList = $$(".mantine-DatePicker-day:not([data-outside=true]):not([disabled])");
 
     @Step("Ввод названия вишлиста")
     public CreationWishlistPage setName(String value) {
@@ -41,10 +40,9 @@ public class CreationWishlistPage {
         if (date == null)
             return this;
         String day;
-        if(date.charAt(0)=='0'){
+        if (date.charAt(0) == '0') {
             day = date.substring(1, 2);
-        }
-        else {
+        } else {
             day = date.substring(0, 2);
         }
         String month = date.substring(3, 5);
@@ -54,7 +52,7 @@ public class CreationWishlistPage {
         dateChooser.click();
         dateChooser.click();
         yearList.findBy(text(year)).click();
-        monthList.get(monthInt-1).click();
+        monthList.get(monthInt - 1).click();
         dayList.findBy(text(day)).click();
         return this;
     }

@@ -28,13 +28,13 @@ public class LoginTests extends TestBase {
     @Tag("Web")
     @Severity(value = SeverityLevel.BLOCKER)
     @DisplayName("Успешная авторизация пользователя")
-    public void shouldLoginWeb(){
+    public void shouldLoginWeb() {
         authPage.openPage()
                 .setEmail(user.getEmail())
                 .submitClick();
         loginPage.setPassword(user.getPassword())
                 .enterClick();
-        userHomePage.checkPage(baseUrl + DEFAUL_USER_HOMEPAGE);
+        userHomePage.checkPage(baseUrl + DEFAULT_USER_HOMEPAGE);
     }
 
     @Test
@@ -43,14 +43,14 @@ public class LoginTests extends TestBase {
     @Tag("Api")
     @Severity(value = SeverityLevel.BLOCKER)
     @DisplayName("Успешная авторизация пользователя")
-    public void shouldLoginApi(){
-        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(),user.getPassword());
+    public void shouldLoginApi() {
+        LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
         user.setAccess(loginResponse.accessToken());
         user.setId(loginResponse.userInfo().id());
 
-        step("Проверка ответа метода", ()->{
-            assertEquals(user.getEmail(),loginResponse.userInfo().email());
+        step("Проверка ответа метода", () -> {
+            assertEquals(user.getEmail(), loginResponse.userInfo().email());
             assertThat(user.getAccess().startsWith(EXPECTED_TOKEN_PATH));
         });
     }

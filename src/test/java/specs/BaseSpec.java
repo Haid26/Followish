@@ -21,7 +21,7 @@ public class BaseSpec {
             .log(ALL)
             .expectStatusCode(404)
             .expectBody(matchesJsonSchemaInClasspath("schemas/common/not_found_response_schema.json"))
-            .expectBody("message",notNullValue())
+            .expectBody("message", notNullValue())
             .build();
 
 }

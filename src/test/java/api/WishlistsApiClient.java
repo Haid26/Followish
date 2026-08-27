@@ -13,7 +13,7 @@ import static specs.WishlistSpec.*;
 
 public class WishlistsApiClient {
     @Step("запрос создания вишлиста")
-    public WishlistResponseModel create(WishlistRequestModel body, String token){
+    public WishlistResponseModel create(WishlistRequestModel body, String token) {
         return given(wishlistRequestSpec)
                 .body(body)
                 .headers("Authorization",
@@ -27,7 +27,7 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос на получение списка вишлистов")
-    public WishlistResponseModel[] getList(String token){
+    public WishlistResponseModel[] getList(String token) {
         return given(wishlistRequestSpec)
                 .headers("Authorization",
                         "Bearer " + token)
@@ -40,13 +40,13 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос редактирования вишлиста")
-    public WishlistResponseModel edit(WishlistRequestModel body,String linkKey, String token){
+    public WishlistResponseModel edit(WishlistRequestModel body, String linkKey, String token) {
         return given(wishlistRequestSpec)
                 .body(body)
                 .headers("Authorization",
                         "Bearer " + token)
                 .when()
-                .put("/wishlists/"+linkKey)
+                .put("/wishlists/" + linkKey)
                 .then()
                 .spec(successfulWishlistEditionResponseSpec)
                 .extract()
@@ -54,13 +54,13 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос удаления вишлиста")
-    public WishlistDeleteModel delete(WishlistDeleteModel body, String token){
+    public WishlistDeleteModel delete(WishlistDeleteModel body, String token) {
         return given(wishlistRequestSpec)
                 .body(body)
                 .headers("Authorization",
                         "Bearer " + token)
                 .when()
-                .delete("/wishlists/"+body.id())
+                .delete("/wishlists/" + body.id())
                 .then()
                 .spec(successfulWishlistDeletionResponseSpec)
                 .extract()
@@ -68,13 +68,13 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос редактирования несуществующего вишлиста")
-    public NotFoundResponseModel editNotFound(WishlistRequestModel body, String linkKey, String token){
+    public NotFoundResponseModel editNotFound(WishlistRequestModel body, String linkKey, String token) {
         return given(wishlistRequestSpec)
                 .body(body)
                 .headers("Authorization",
                         "Bearer " + token)
                 .when()
-                .put("/wishlists/"+linkKey)
+                .put("/wishlists/" + linkKey)
                 .then()
                 .spec(wishlistNotFoundResponseSpec)
                 .extract()
@@ -82,13 +82,13 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос удаления несуществующего вишлиста")
-    public NotFoundResponseModel deleteNotFound(WishlistDeleteModel body, String token){
+    public NotFoundResponseModel deleteNotFound(WishlistDeleteModel body, String token) {
         return given(wishlistRequestSpec)
                 .body(body)
                 .headers("Authorization",
                         "Bearer " + token)
                 .when()
-                .delete("/wishlists/"+body.id())
+                .delete("/wishlists/" + body.id())
                 .then()
                 .spec(wishlistNotFoundResponseSpec)
                 .extract()

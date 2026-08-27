@@ -5,10 +5,8 @@ import models.common.NotFoundResponseModel;
 import models.login.LoginRequestModel;
 import models.login.LoginResponseModel;
 import models.wishlist.WishlistDeleteModel;
-import models.wishlist.WishlistGetListResponseModel;
 import models.wishlist.WishlistRequestModel;
 import models.wishlist.WishlistResponseModel;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -293,8 +291,8 @@ public class WishlistTests extends TestBase {
         WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
         WishlistResponseModel[] getListResponse = api.wishlists.getList(user.getAccess());
         step("Проверка ответа метода", () -> {
-            for (int i = 0; i<getListResponse.length;i++)
-                assertEquals(user.getId(),getListResponse[i].userId());
+            for (int i = 0; i < getListResponse.length; i++)
+                assertEquals(user.getId(), getListResponse[i].userId());
         });
     }
 
@@ -323,7 +321,7 @@ public class WishlistTests extends TestBase {
 
         WishlistDeleteModel deleteBody = new WishlistDeleteModel(wishlist.getId());
         WishlistDeleteModel deleteResponse = api.wishlists.delete(deleteBody, user.getAccess());
-        NotFoundResponseModel deleteResponse2 = api.wishlists.deleteNotFound(deleteBody,user.getAccess());
+        NotFoundResponseModel deleteResponse2 = api.wishlists.deleteNotFound(deleteBody, user.getAccess());
         step("Проверка ответа метода", () ->
                 assertEquals(DEFAULT_NOT_FOUND_MESSAGE, deleteResponse2.message()));
 

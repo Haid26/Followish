@@ -10,19 +10,19 @@ public class LoginPage {
             submitButton = $("[type=submit]");
 
     @Step("Ввод пароля")
-    public LoginPage setPassword (String password){
+    public LoginPage setPassword(String password) {
         passwordInput.setValue(password);
         return this;
     }
 
     @Step("Нажатие на Войти")
-    public LoginPage enterClick(){
+    public LoginPage enterClick() {
         submitButton.click();
         return this;
     }
 
     @Step("Ввод пароля и авторизация")
-    public LoginPage enterPassword(String password){
+    public LoginPage enterPassword(String password) {
         setPassword(password);
         enterClick();
         return this;

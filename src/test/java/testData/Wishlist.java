@@ -35,7 +35,7 @@ public class Wishlist {
     }
 
     public void generateRandomFutureDate() {
-        if(random.nextBoolean())
+        if (random.nextBoolean())
             this.dateEnd = faker.timeAndDate().future(730, DAYS, "dd.MM.yyyy");
         else
             this.dateEnd = null;

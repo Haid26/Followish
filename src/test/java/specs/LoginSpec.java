@@ -16,7 +16,7 @@ public class LoginSpec {
             .expectStatusCode(200)
             .expectBody(matchesJsonSchemaInClasspath("schemas/login/successful_login_response_schema.json"))
             .expectBody("access_token", notNullValue())
-            .expectBody("user",notNullValue())
+            .expectBody("user", notNullValue())
             .build();
 
 }

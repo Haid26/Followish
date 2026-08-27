@@ -17,20 +17,19 @@ public class AuthPage {
     }
 
     @Step("Ввод почты")
-    public AuthPage setEmail(String email)
-    {
+    public AuthPage setEmail(String email) {
         emailInput.setValue(email);
         return this;
     }
 
     @Step("Нажатие на продолжить")
-    public AuthPage submitClick(){
+    public AuthPage submitClick() {
         submitButton.click();
         return this;
     }
 
     @Step("Ввод почты и переход к вводу пароля")
-    public AuthPage enterEmail(String email){
+    public AuthPage enterEmail(String email) {
         setEmail(email);
         submitClick();
         return this;

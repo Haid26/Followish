@@ -14,7 +14,7 @@ public class UserHomePage {
     private final SelenideElement usernameLabel = $(".e1mfh2oq2 "),
             createWishlistButton = $("a[href=\"/app/wishlists/create\"]"),
             alert = $("[role=alert]"),
-            confirmDeletionButton = $(byTagAndText("button","Да, удалить"));
+            confirmDeletionButton = $(byTagAndText("button", "Да, удалить"));
 
     private final ElementsCollection wishlistsList = $$(".MuiTypography-root.MuiTypography-h4.e1qs9cz81.css-7s55ya"),
             wishlistsMenuList = $$("[type=button][props]"),
@@ -47,7 +47,7 @@ public class UserHomePage {
     }
 
     @Step("Переход на страницу редактирования вишлиста")
-    public UserHomePage gotoEditWishlistPage(String wishlistName){
+    public UserHomePage gotoEditWishlistPage(String wishlistName) {
         wishlistsMenuList.get(findWishlistNumber(wishlistName)).click();
         wishlistMenuButtons.get(0).click();
         return this;

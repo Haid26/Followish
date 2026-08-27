@@ -1,7 +1,5 @@
 package models.wishlist;
 
-import java.util.List;
-
 public record WishlistRequestModel(String name,
                                    String dateEnd,
                                    String comment,

@@ -16,13 +16,13 @@ public class WishlistSpec {
             .log(ALL)
             .expectStatusCode(201)
             .expectBody(matchesJsonSchemaInClasspath("schemas/wishlists/wishlist_response_schema.json"))
-            .expectBody("name",notNullValue())
+            .expectBody("name", notNullValue())
             .build();
     public static ResponseSpecification successfulWishlistEditionResponseSpec = new ResponseSpecBuilder()
             .log(ALL)
             .expectStatusCode(200)
             .expectBody(matchesJsonSchemaInClasspath("schemas/wishlists/wishlist_response_schema.json"))
-            .expectBody("name",notNullValue())
+            .expectBody("name", notNullValue())
             .build();
     public static ResponseSpecification successfulWishlistGetListResponseSpec = new ResponseSpecBuilder()
             .log(ALL)
@@ -32,7 +32,7 @@ public class WishlistSpec {
     public static ResponseSpecification successfulWishlistDeletionResponseSpec = new ResponseSpecBuilder()
             .log(ALL)
             .expectStatusCode(200)
-            .expectBody("id",notNullValue())
+            .expectBody("id", notNullValue())
             .build();
     public static ResponseSpecification wishlistNotFoundResponseSpec = baseNotFoundResponseSpec;
 }

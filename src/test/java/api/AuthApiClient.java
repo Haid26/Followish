@@ -10,7 +10,7 @@ import static specs.LoginSpec.successfulLoginResponseSpec;
 
 public class AuthApiClient {
     @Step("запрос авторизации")
-    public LoginResponseModel login(LoginRequestModel body){
+    public LoginResponseModel login(LoginRequestModel body) {
         return given(loginRequestSpec)
                 .body(body)
                 .when()
