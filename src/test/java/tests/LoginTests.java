@@ -23,11 +23,11 @@ public class LoginTests extends TestBase {
     private static final Logger log = LoggerFactory.getLogger(LoginTests.class);
 
     @Test
-    @Feature("user login")
-    @Story("login via web")
+    @Feature("Авторизация пользователя")
+    @Story("Авторизация пользователя через UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.BLOCKER)
-    @DisplayName("тест на успешную авторизацию пользователя")
+    @DisplayName("Успешная авторизация пользователя")
     public void shouldLoginWeb(){
         authPage.openPage()
                 .setEmail(user.getEmail())
@@ -38,11 +38,11 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Feature("user login")
-    @Story("login via api")
+    @Feature("Авторизация пользователя")
+    @Story("Авторизация пользователя через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.BLOCKER)
-    @DisplayName("тест на успешную авторизацию пользователя")
+    @DisplayName("Успешная авторизация пользователя")
     public void shouldLoginApi(){
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(),user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);

@@ -30,11 +30,11 @@ public class WishlistTests extends TestBase {
     WishlistPage wishlistPage = new WishlistPage();
 
     @Test
-    @Feature("create wishlist")
-    @Story("create wishlist from web")
+    @Feature("Создание вишлистов")
+    @Story("Создание вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("тест на создание вишлиста")
+    @DisplayName("Успешное создание вишлиста")
     public void shouldCreateWishlistWeb() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -50,10 +50,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("wishlist name is mandatory")
+    @Feature("Создание вишлистов")
+    @Story("Создание вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на проверку обязательности имени")
+    @DisplayName("Проверка валидации имени")
     public void shouldBeMandatoryNameWishlist() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -65,10 +66,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("delete wishlist")
+    @Feature("Удаление вишлистов")
+    @Story("Удаление вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на удаление вишлиста cо страницы вишлиста")
+    @DisplayName("Успешное удаление вишлиста cо страницы вишлиста")
     public void shouldDeleteWishlistFromWishlistPage() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -84,10 +86,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("delete wishlist")
+    @Feature("Удаление вишлистов")
+    @Story("Удаление вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на удаление вишлиста с домашней страницы пользователя")
+    @DisplayName("Успешное удаление вишлиста с домашней страницы пользователя")
     public void shouldDeleteWishlistFromHomePage() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -103,10 +106,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("edit wishlist")
+    @Feature("Редактирование вишлистов")
+    @Story("Редактирование вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на редактирование вишлиста cо страницы вишлиста")
+    @DisplayName("Успешное редактирование вишлиста cо страницы вишлиста")
     public void shouldEditWishlistFromWishlistPage() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -128,10 +132,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("edit wishlist")
+    @Feature("Редактирование вишлистов")
+    @Story("Редактирование вишлиста в UI")
     @Tag("Web")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на редактирование вишлиста c домашней страницы пользователя")
+    @DisplayName("Успешное редактирование вишлиста c домашней страницы пользователя")
     public void shouldEditWishlistFromHomePage() {
         authPage.openPage()
                 .enterEmail(user.getEmail());
@@ -152,11 +157,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("create wishlist")
-    @Story("create wishlist from api")
+    @Feature("Создание вишлистов")
+    @Story("Создание вишлиста через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("тест на создание вишлиста")
+    @DisplayName("Успешное создание вишлиста")
     public void shouldCreateWishlistApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
@@ -188,11 +193,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("edit wishlist")
-    @Story("edit wishlist from api")
+    @Feature("Редактирование вишлистов")
+    @Story("Редактирование вишлиста через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("тест на редактирование вишлиста")
+    @DisplayName("Успешное редактирование вишлиста")
     public void shouldEditWishlistApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
@@ -237,11 +242,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("delete wishlist")
-    @Story("delete wishlist from api")
+    @Feature("Удаление вишлистов")
+    @Story("Удаление вишлиста через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("тест на удаление вишлиста")
+    @DisplayName("Успешное удаление вишлиста")
     public void shouldDeleteWishlistApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
@@ -267,11 +272,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("Get List of wishlists")
-    @Story("create wishlist and get list of wishlists from api")
+    @Feature("Получение вишлистов")
+    @Story("Получение списка вишлистов через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("тест на получение списка вишлистов")
+    @DisplayName("Успешное получение списка вишлистов")
     public void shouldGetListWishlistApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
@@ -294,11 +299,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("delete wishlist")
-    @Story("delete already deleted wishlist")
+    @Feature("Удаление вишлистов")
+    @Story("Удаление вишлиста через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на удаление вишлиста")
+    @DisplayName("Проверка ошибки удаления уже удаленного вишлиста")
     public void shouldNotDeleteWishlistTwiceApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
@@ -325,11 +330,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Feature("edit wishlist")
-    @Story("edit non-existent wishlist")
+    @Feature("Редактирование вишлистов")
+    @Story("Редактирование вишлиста через API")
     @Tag("Api")
     @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("тест на редактирование вишлиста")
+    @DisplayName("Проверка ошибки при редактировании несуществующего вишлиста")
     public void shouldNotEditNonExistWishlistApi() {
         LoginRequestModel loginBody = new LoginRequestModel(user.getEmail(), user.getPassword());
         LoginResponseModel loginResponse = api.auth.login(loginBody);
