@@ -54,7 +54,7 @@ public class UserHomePage {
     }
 
     private int findWishlistNumber(String name) {
-        sleep(1000);
+        sleep(2000);
         for (int i = 0; i < wishlistsList.size(); i++) {
             if (wishlistsList.get(i).has(text(name)))
                 return i;
