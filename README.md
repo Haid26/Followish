@@ -1,6 +1,6 @@
 # Проект по автоматизации тестирования для сайта   [Followish](https://followish.io/)
 <p align="center">
-<img title="Followish" src="images/logo/followish.jpg"  alt="video">  
+<img title="Followish" src="images/logo/followish.jpg"  alt="followish">  
 </p>
 ## **Содержание**
 ____
