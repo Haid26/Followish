@@ -1,8 +1,11 @@
 package api;
 
 import io.qameta.allure.Step;
+import io.restassured.common.mapper.TypeRef;
 import models.common.NotFoundResponseModel;
 import models.wishlist.*;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,7 +27,7 @@ public class WishlistsApiClient {
     }
 
     @Step("запрос на получение списка вишлистов")
-    public WishlistGetListResponseModel getList(String token){
+    public WishlistResponseModel[] getList(String token){
         return given(wishlistRequestSpec)
                 .headers("Authorization",
                         "Bearer " + token)
@@ -33,7 +36,7 @@ public class WishlistsApiClient {
                 .then()
                 .spec(successfulWishlistGetListResponseSpec)
                 .extract()
-                .as(WishlistGetListResponseModel.class);
+                .as(WishlistResponseModel[].class);
     }
 
     @Step("запрос редактирования вишлиста")

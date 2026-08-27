@@ -266,7 +266,6 @@ public class WishlistTests extends TestBase {
 
     }
 
-    @Disabled//разобраться с сериализацией массива
     @Test
     @Feature("Get List of wishlists")
     @Story("create wishlist and get list of wishlists from api")
@@ -287,10 +286,10 @@ public class WishlistTests extends TestBase {
                 wishlist.isProfileLinkVisible(),
                 wishlist.getTheme());
         WishlistResponseModel createResponse = api.wishlists.create(createBody, user.getAccess());
-        WishlistGetListResponseModel getListResponse = api.wishlists.getList(user.getAccess());
+        WishlistResponseModel[] getListResponse = api.wishlists.getList(user.getAccess());
         step("Проверка ответа метода", () -> {
-            for (int i = 0; i<getListResponse.wishlistList().length;i++)
-                assertEquals(user.getId(),getListResponse.wishlistList()[i].userId());
+            for (int i = 0; i<getListResponse.length;i++)
+                assertEquals(user.getId(),getListResponse[i].userId());
         });
     }
 
