@@ -3,8 +3,7 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class AuthPage {
     private final SelenideElement emailInput = $("[name=email]"),
@@ -32,6 +31,18 @@ public class AuthPage {
     public AuthPage enterEmail(String email) {
         setEmail(email);
         submitClick();
+        return this;
+    }
+
+    @Step("Обновление страницы")
+    public AuthPage refreshPage(){
+        refresh();
+        return this;
+    }
+
+    @Step("Прописывание токена в local storage")
+    public AuthPage setToken(String token){
+        localStorage().setItem("token",token);
         return this;
     }
 }

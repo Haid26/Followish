@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import io.qameta.allure.*;
 import models.common.NotFoundResponseModel;
@@ -10,150 +10,20 @@ import models.wishlist.WishlistResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import pages.CreationWishlistPage;
-import pages.WishlistPage;
 import utils.DateTimeConvertor;
 
 import java.util.Objects;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static testData.TestData.*;
+import static testData.TestData.DEFAULT_NON_EXIST_WISHLIST_LINK;
+import static testData.TestData.DEFAULT_NOT_FOUND_MESSAGE;
 
 @Epic("Вишлист")
 @Owner("Haid26")
 @DisplayName("Тесты на вишлисты")
-public class WishlistTests extends TestBase {
-    CreationWishlistPage creationWishlistPage = new CreationWishlistPage();
-    WishlistPage wishlistPage = new WishlistPage();
-
-    @Test
-    @Feature("Создание вишлистов")
-    @Story("Создание вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.CRITICAL)
-    @DisplayName("Успешное создание вишлиста")
-    public void shouldCreateWishlistWeb() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.checkName(wishlist.getName())
-                .checkAlert(DEFAULT_SUCCESSFUL_WISHLIST_CREATION_MESSAGE);
-
-    }
-
-    @Test
-    @Feature("Создание вишлистов")
-    @Story("Создание вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("Проверка валидации имени")
-    public void shouldBeMandatoryNameWishlist() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.saveButtonClick()
-                .checkEmptyNameValidation(DEFAULT_EMPTY_FIELD_ERROR);
-
-    }
-
-    @Test
-    @Feature("Удаление вишлистов")
-    @Story("Удаление вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("Успешное удаление вишлиста cо страницы вишлиста")
-    public void shouldDeleteWishlistFromWishlistPage() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.deleteWishlist();
-        userHomePage.checkAlert(DEFAULT_SUCCESSFUL_WISHLIST_DELETION_MESSAGE);
-
-    }
-
-    @Test
-    @Feature("Удаление вишлистов")
-    @Story("Удаление вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("Успешное удаление вишлиста с домашней страницы пользователя")
-    public void shouldDeleteWishlistFromHomePage() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.goToHomePage();
-        userHomePage.deleteWishlist(wishlist.getName())
-                .checkAlert(DEFAULT_SUCCESSFUL_WISHLIST_DELETION_MESSAGE);
-    }
-
-    @Test
-    @Feature("Редактирование вишлистов")
-    @Story("Редактирование вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("Успешное редактирование вишлиста cо страницы вишлиста")
-    public void shouldEditWishlistFromWishlistPage() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.goToHomePage();
-        userHomePage.gotoEditWishlistPage(wishlist.getName());
-        wishlist.generateTestData();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.checkAlert(DEFAULT_SUCCESSFUL_WISHLIST_UPDATE_MESSAGE)
-                .checkName(wishlist.getName());
-    }
-
-    @Test
-    @Feature("Редактирование вишлистов")
-    @Story("Редактирование вишлиста в UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.NORMAL)
-    @DisplayName("Успешное редактирование вишлиста c домашней страницы пользователя")
-    public void shouldEditWishlistFromHomePage() {
-        authPage.openPage()
-                .enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        userHomePage.createWishlistClick();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.gotoEditWishlistPage();
-        wishlist.generateTestData();
-        creationWishlistPage.setName(wishlist.getName())
-                .setComment(wishlist.getComment())
-                .setDate(wishlist.getDateEnd())
-                .saveButtonClick();
-        wishlistPage.checkAlert(DEFAULT_SUCCESSFUL_WISHLIST_UPDATE_MESSAGE)
-                .checkName(wishlist.getName());
-    }
-
+@Tag("Api")
+public class WishlistTests extends TestBaseApi {
     @Test
     @Feature("Создание вишлистов")
     @Story("Создание вишлиста через API")

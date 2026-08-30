@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import io.qameta.allure.*;
 import models.login.LoginRequestModel;
@@ -6,37 +6,17 @@ import models.login.LoginResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static testData.TestData.*;
+import static testData.TestData.EXPECTED_TOKEN_PATH;
 
 @Epic("Авторизация пользователя")
 @Owner("Haid26")
 @DisplayName("Тесты на авторизацию пользователя")
-public class LoginTests extends TestBase {
-
-    private static final Logger log = LoggerFactory.getLogger(LoginTests.class);
-
-    @Test
-    @Feature("Авторизация пользователя")
-    @Story("Авторизация пользователя через UI")
-    @Tag("Web")
-    @Severity(value = SeverityLevel.BLOCKER)
-    @DisplayName("Успешная авторизация пользователя")
-    public void shouldLoginWeb() {
-        authPage.openPage()
-                .setEmail(user.getEmail())
-                .submitClick();
-        loginPage.setPassword(user.getPassword())
-                .enterClick();
-        userHomePage.checkPage(baseUrl + DEFAULT_USER_HOMEPAGE);
-    }
-
+@Tag("Api")
+public class LoginTests extends TestBaseApi{
     @Test
     @Feature("Авторизация пользователя")
     @Story("Авторизация пользователя через API")

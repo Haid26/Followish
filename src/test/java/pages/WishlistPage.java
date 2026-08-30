@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -12,12 +13,16 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class WishlistPage {
     private final SelenideElement wishlistName = $(".MuiTypography-h1.e1az68wg11.css-1e854mf"),
-            addPresentButton = $(byText("Добавить подарок")),
-            toWishlistsButton = $(byTagAndText("button", "К списку вишлистов")),
             confirmDeletionButton = $(byTagAndText("button", "Да, удалить")),
             alert = $("[role=alert]");
 
     private final ElementsCollection editWishListButtons = $$("[type=button][props]");
+
+    @Step("открытие страницы вишлиста")
+    public WishlistPage open(String linkKey) {
+        Selenide.open("/app/wishlists/" + linkKey);
+        return this;
+    }
 
     @Step("Проверка названия вишлиста")
     public WishlistPage checkName(String value) {
@@ -28,12 +33,6 @@ public class WishlistPage {
     @Step("Проверка алерта об операции")
     public WishlistPage checkAlert(String message) {
         alert.$(byText(message)).exists();
-        return this;
-    }
-
-    @Step("Переход к списку вишлистов")
-    public WishlistPage goToHomePage() {
-        toWishlistsButton.click();
         return this;
     }
 
