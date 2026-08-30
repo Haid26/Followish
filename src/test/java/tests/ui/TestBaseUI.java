@@ -1,4 +1,4 @@
-package tests;
+package tests.ui;
 
 import api.ApiClient;
 import com.codeborne.selenide.Configuration;
@@ -24,7 +24,7 @@ import static com.codeborne.selenide.Selenide.sleep;
 import static testData.TestData.DEFAULT_PASS;
 import static testData.TestData.DEFAULT_USER;
 
-public class TestBase {
+public class TestBaseUI {
     protected static final ApiClient api = new ApiClient();
     AuthPage authPage = new AuthPage();
     LoginPage loginPage = new LoginPage();
@@ -33,7 +33,7 @@ public class TestBase {
     User user = new User();
 
     @BeforeAll
-    static void setupSelenideConfig() {
+    static void setupConfig() {
 
         Configuration.pageLoadStrategy = "eager";
         Configuration.timeout = 5000;
